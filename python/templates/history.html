@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ประวัติรายการ</title>
+
+<style>
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(135deg, #dfe6e9, #b2bec3);
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.header h2 {
+    margin: 0;
+}
+
+.back-btn {
+    padding: 8px 14px;
+    background: #2d3436;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.card {
+    background: white;
+    border-radius: 14px;
+    padding: 15px 18px;
+    margin-bottom: 12px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+}
+
+.date {
+    font-size: 13px;
+    color: #636e72;
+}
+
+.category {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.note {
+    font-size: 14px;
+    color: #636e72;
+}
+
+.amount {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.income {
+    color: #00b894;
+}
+
+.expense {
+    color: #d63031;
+}
+
+.right {
+    text-align: right;
+}
+
+.type-badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: white;
+    display: inline-block;
+    margin-bottom: 8px;
+}
+
+.type-income {
+    background: #00b894;
+}
+
+.type-expense {
+    background: #d63031;
+}
+
+.delete-btn {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 14px;
+    color: #d63031;
+    text-decoration: none;
+}
+
+.delete-btn:hover {
+    text-decoration: underline;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<div class="header">
+    <h2>📜 ประวัติรายการ</h2>
+    <a href="{{ url_for('dashboard') }}" class="back-btn">◀ กลับ</a>
+</div>
+
+{% for t in transactions %}
+<div class="card">
+    <div class="left">
+        <span class="date">🕒 {{ t.date }}</span>
+        <span class="category">{{ t.category }}</span>
+        <span class="note">{{ t.note }}</span>
+        <span class="amount {{ 'income' if t.type == 'รายรับ' else 'expense' }}">
+            {{ '+' if t.type == 'รายรับ' else '-' }}{{ "%.2f"|format(t.amount) }} บาท
+        </span>
+    </div>
+
+    <div class="right">
+        <span class="type-badge {{ 'type-income' if t.type == 'รายรับ' else 'type-expense' }}">
+            {{ t.type }}
+        </span><br>
+        <a href="{{ url_for('delete_transaction', id=t.id) }}" class="delete-btn">❌ ลบ</a>
+    </div>
+</div>
+{% else %}
+<p style="text-align:center;color:#555;">ยังไม่มีรายการ</p>
+{% endfor %}
+
+</div>
+</body>
+</html>

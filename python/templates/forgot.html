@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>ลืมรหัสผ่าน</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+</head>
+
+<body>
+<div class="page">
+  <div class="login-card">
+
+    <div class="icon">🔑</div>
+    <h2>ลืมรหัสผ่าน</h2>
+    <p class="subtitle">กรอกข้อมูลเพื่อรีเซ็ตรหัสผ่าน</p>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="alert">
+          {{ messages[0] }}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <form method="post">
+
+      <div class="input-group">
+        <label>อีเมล</label>
+        <input type="email" name="email" placeholder="example@gmail.com" required>
+      </div>
+
+      <div class="input-group">
+        <label>คำถามความปลอดภัย</label>
+        <select name="security_question" required>
+          <option value="">-- เลือกคำถาม --</option>
+          <option value="pet">ชื่อสัตว์เลี้ยงตัวแรก?</option>
+          <option value="school">โรงเรียนประถม?</option>
+          <option value="city">จังหวัดที่เกิด?</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label>คำตอบ</label>
+        <input type="text" name="security_answer" placeholder="คำตอบของคุณ" required>
+      </div>
+
+      <div class="input-group">
+        <label>รหัสผ่านใหม่</label>
+        <input type="password" name="new_password" placeholder="••••••" required>
+      </div>
+
+      <button class="btn-login" type="submit">รีเซ็ตรหัสผ่าน</button>
+    </form>
+
+    <a class="back-link" href="/">← กลับหน้าเข้าสู่ระบบ</a>
+
+  </div>
+</div>
+</body>
+</html>

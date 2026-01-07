@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>ตั้งค่าเพิ่มเติม</title>
+
+<style>
+body{
+  background:#f0f2f5;
+  font-family:Arial;
+  padding:30px;
+}
+
+.card{
+  max-width:420px;
+  margin:auto;
+  background:white;
+  padding:25px;
+  border-radius:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,.15);
+}
+
+h2{
+  margin-bottom:20px;
+  color:#0984e3;
+}
+
+label{
+  font-weight:bold;
+  display:block;
+  margin-top:15px;
+}
+
+input{
+  width:100%;
+  padding:10px;
+  margin-top:6px;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+
+button{
+  margin-top:25px;
+  width:100%;
+  padding:12px;
+  font-size:16px;
+  border:none;
+  border-radius:10px;
+  background:#00b894;
+  color:white;
+  cursor:pointer;
+}
+
+a.back{
+  text-decoration:none;
+  color:#555;
+  display:inline-block;
+  margin-bottom:15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <a href="/dashboard" class="back">◀ กลับ</a>
+
+  <h2>⚙ ตั้งค่าเพิ่มเติม</h2>
+
+  <form method="post" action="/save_settings">
+    <label>เงินออมเริ่มต้น (บาท)</label>
+    <input type="number" name="default_saving" value="0">
+
+    <label>หักเงินออม % จากเงินเดือน</label>
+    <input type="number" name="saving_percent" value="0">
+
+    <label>รหัสผ่านใหม่</label>
+    <input type="password" name="new_password">
+    <label>แจ้งเตือนเมื่อยอดคงเหลือต่ำกว่า (บาท)</label>
+<input type="number" name="low_balance_alert"
+       value="{{ settings.low_balance_alert or 0 }}"
+       min="0"
+       placeholder="เช่น 1000">
+
+
+    <button>💾 บันทึกการตั้งค่า</button>
+  </form>
+</div>
+
+</body>
+</html>

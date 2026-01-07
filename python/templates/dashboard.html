@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    {% if low_balance_warning %}
+<div style="
+    background:#ffdddd;
+    color:#b00000;
+    padding:12px;
+    border-radius:8px;
+    margin-bottom:15px;
+    font-weight:bold;
+">
+⚠️ แจ้งเตือน: ยอดเงินคงเหลือต่ำกว่าที่ตั้งไว้
+</div>
+{% endif %}
+
+
+    <style>
+        /* ---------- BODY ---------- */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* ---------- CONTAINER ---------- */
+        .container {
+            max-width: 950px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            position: relative;
+        }
+
+        /* ---------- LOGOUT BUTTON ---------- */
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .logout-btn:hover {
+            background: linear-gradient(135deg, #c0392b, #e74c3c);
+        }
+
+        /* ---------- TOP TITLE ---------- */
+        .top-left-title {
+            text-align: left;
+            font-size: 26px;
+            font-weight: bold;
+            color: #0984e3;
+            margin-bottom: 20px;
+        }
+
+        /* ---------- MENU TOP ---------- */
+        .menu-top {
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        .menu-top button {
+            padding: 12px 15px;
+            font-size: 16px;
+            border: 3px solid;
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            margin: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: 0.3s;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .menu-top button span.icon {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        .menu-top button:hover {
+            filter: brightness(115%);
+            transform: translateY(-3px);
+        }
+
+        /* ---------- MENU COLORS ---------- */
+        .menu-top button:nth-child(1) {
+            background: linear-gradient(135deg, #00b894, #00d084);
+            border-color: #00805d;
+        }
+        .menu-top button:nth-child(2) {
+            background: linear-gradient(135deg, #0984e3, #74b9ff);
+            border-color: #0559b3;
+        }
+        .menu-top button:nth-child(3) {
+            background: linear-gradient(135deg, #fd79a8, #ff6eb4);
+            border-color: #c2185b;
+        }
+        .menu-top button:nth-child(4) {
+            background: linear-gradient(135deg, #fdcb6e, #f6e58d);
+            border-color: #d9a029;
+            color: black;
+        }
+        .menu-top button:nth-child(5) {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            border-color: #3a28a8;
+        }
+        .menu-top button:nth-child(6) {
+            background: linear-gradient(135deg, #00cec9, #81ecec);
+            border-color: #009393;
+        }
+
+        /* ---------- SUMMARY ---------- */
+        .summary {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+        .summary div {
+            color: white;
+            padding: 25px;
+            border-radius: 14px;
+            flex: 1 1 160px;
+            margin: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            font-size: 18px;
+            transition: transform 0.3s;
+        }
+        .summary div:hover {
+            transform: translateY(-5px);
+        }
+        .summary div.income {
+            background: linear-gradient(135deg, #007a4d, #00b894);
+        }
+        .summary div.expense {
+            background: linear-gradient(135deg, #a30000, #d63031);
+        }
+        .summary div.saving {
+            background: linear-gradient(135deg, #d1b000, #ffd700);
+        }
+        .summary div.balance {
+            background: linear-gradient(135deg, #3b2ecb, #6c5ce7);
+        }
+
+        /* ---------- DATETIME ---------- */
+        .datetime {
+            text-align: center;
+            margin: 20px auto;
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(135deg, #6c5ce7, #00b894);
+            padding: 12px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            max-width: 400px;
+        }
+
+        /* ---------- CHART ---------- */
+        .chart-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 3px solid red;
+            border-radius: 16px;
+            background-color: #fff;
+        }
+        .chart-label {
+            font-size: 18px;
+            font-weight: bold;
+            color: black;
+            min-width: 200px;
+            margin-top: 10px;
+        }
+        #financeChart {
+            max-width: 400px;
+            max-height: 400px;
+            width: 100%;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Logout -->
+    <form action="{{ url_for('logout') }}" method="post">
+        <button type="submit" class="logout-btn">ออกจากระบบ</button>
+    </form>
+
+    <!-- Title -->
+    <div class="top-left-title">จัดการรายรับ–รายจ่าย</div>
+
+    <!-- Datetime -->
+    <div class="datetime" id="datetime">กำลังโหลด...</div>
+
+    <!-- Top Menu -->
+    <div class="menu-top">
+        <button onclick="location.href='{{ url_for('dashboard') }}'">
+            <span class="icon">📊</span>ภาพรวม
+        </button>
+        <button onclick="location.href='{{ url_for('add_transaction') }}'">
+            <span class="icon">➕</span>เพิ่มรายการ
+        </button>
+        <button onclick="location.href='{{ url_for('history') }}'">
+            <span class="icon">📜</span>ประวัติ
+        </button>
+        <button onclick="location.href='{{ url_for('year_summary') }}'">
+            <span class="icon">📆</span>สรุปรายปี
+        </button>
+        <button id="mainSettingsBtn">
+            <span class="icon">⚙️</span>ตั้งค่า
+        </button>
+        <button onclick="location.href='{{ url_for("settings") }}'">
+            <span class="icon">🛠️</span>ตั้งค่าเพิ่มเติม
+        </button>
+    </div>
+
+    <!-- Summary -->
+    <div class="summary">
+        <div class="income"><strong>รายรับ</strong><br>{{ "%.2f"|format(income) }} บาท</div>
+        <div class="expense"><strong>รายจ่าย</strong><br>{{ "%.2f"|format(expense) }} บาท</div>
+        <div class="saving"><strong>เงินออม</strong><br>{{ "%.2f"|format(saving) }} บาท</div>
+        <div class="balance"><strong>คงเหลือสุทธิ</strong><br>{{ "%.2f"|format(balance) }} บาท</div>
+    </div>
+
+    <!-- Chart -->
+    <div class="chart-container">
+        <div class="chart-label">สัดส่วนรายรับ–รายจ่าย</div>
+        <canvas id="financeChart"></canvas>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // ---------- DATETIME ----------
+    function updateDateTime() {
+        const dtElem = document.getElementById('datetime');
+        const now = new Date();
+        dtElem.textContent = now.toLocaleString('th-TH');
+    }
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+
+    // ---------- CHART ----------
+    const ctx = document.getElementById('financeChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['รายรับ', 'รายจ่าย', 'เงินออม'],
+            datasets: [{
+                data: [
+                    {{ income|default(0) }},
+                    {{ expense|default(0) }},
+                    {{ saving|default(0) }}
+                ],
+                backgroundColor: ['#00b894', '#d63031', '#ffd700']
+            }]
+        }
+    });
+</script>
+
+</body>
+</html>

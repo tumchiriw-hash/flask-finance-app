@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>สรุปรายปี</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f0f2f5; }
+.container { max-width:900px; margin:30px auto; padding:20px; background:#fff; border-radius:16px; box-shadow:0 8px 20px rgba(0,0,0,0.15);}
+h2 { text-align:center; color:#0984e3; margin-bottom:30px;}
+canvas { max-width:100%; }
+button { display:block; margin:20px auto; padding:10px 20px; border:none; border-radius:10px; background:#0984e3; color:white; cursor:pointer; transition:0.3s; font-weight:bold;}
+button:hover { background:#0559b3; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h2>สรุปรายปี (รายรับ–รายจ่าย)</h2>
+    <canvas id="yearChart"></canvas>
+    <form action="{{ url_for('dashboard') }}">
+        <button type="submit">กลับ Dashboard</button>
+    </form>
+</div>
+
+<script>
+// แปลงข้อมูลจาก Flask เป็น JS array
+const incomeData = {{ income_data|tojson }};
+const expenseData = {{ expense_data|tojson }};
+
+const ctx = document.getElementById('yearChart').getContext('2d');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'],
+        datasets: [
+            {
+                label: 'รายรับ',
+                data: incomeData,
+                backgroundColor: 'rgba(0, 184, 148, 0.7)',
+                borderColor: 'rgba(0, 184, 148, 1)',
+                borderWidth: 1
+            },
+            {
+                label: 'รายจ่าย',
+                data: expenseData,
+                backgroundColor: 'rgba(214, 48, 49, 0.7)',
+                borderColor: 'rgba(214, 48, 49, 1)',
+                borderWidth: 1
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { position: 'top' },
+            title: {
+                display: true,
+                text: 'สรุปรายเดือนของปีนี้',
+                font: { size: 18 }
+            }
+        },
+        scales: {
+            y: { beginAtZero: true, ticks: { stepSize: 1000 } },
+            x: { grid: { display: false } }
+        }
+    }
+});
+</script>
+</body>
+</html>

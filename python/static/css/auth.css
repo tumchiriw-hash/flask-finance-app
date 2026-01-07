@@ -1,0 +1,231 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+/* ครอบทั้งหน้าจอ */
+.page {
+    height: 100vh;              /* เต็มจอ */
+    display: flex;
+    justify-content: center;    /* กลางแนวนอน */
+    align-items: center;        /* กลางแนวตั้ง */
+}
+
+/* กล่องล็อกอิน */
+.login-card {
+    width: 380px;
+    background: white;
+    border-radius: 18px;
+    padding: 35px;
+    text-align: center;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+}
+
+/* ไอคอน */
+.icon {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+/* หัวข้อ */
+.login-card h2 {
+    margin: 10px 0 5px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 25px;
+}
+
+/* input */
+.input-group {
+    text-align: left;
+    margin-bottom: 18px;
+}
+
+.input-group label {
+    font-size: 14px;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    font-size: 15px;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+/* ปุ่ม */
+.btn-login {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-login:hover {
+    opacity: 0.9;
+}
+
+/* ลิงก์ */
+.links {
+    margin-top: 18px;
+    font-size: 14px;
+}
+
+.links a {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.links span {
+    margin: 0 8px;
+    color: #9ca3af;
+}
+.alert {
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.alert.error {
+    background: #ffe5e5;
+    color: #b30000;
+}
+
+.alert.success {
+    background: #e6fff2;
+    color: #006644;
+}
+.alert {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.alert.error {
+    background: #ffe5e5;
+    color: #c0392b;
+}
+
+.alert.success {
+    background: #e8fff1;
+    color: #1e8449;
+}
+.page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0f172a;
+}
+
+.login-card {
+  width: 380px;
+  background: #111827;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  color: #fff;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  margin-bottom: 14px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #1f2933;
+  color: #fff;
+}
+
+.btn-login {
+  width: 100%;
+  padding: 12px;
+  background: #22c55e;
+  border: none;
+  border-radius: 10px;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-login:hover {
+  background: #16a34a;
+}
+
+.back-link {
+  display: block;
+  text-align: center;
+  margin-top: 14px;
+  color: #38bdf8;
+  text-decoration: none;
+}
+.subtitle {
+  text-align: center;
+  font-size: 14px;
+  color: #9ca3af;
+  margin-bottom: 16px;
+}
+
+.icon {
+  font-size: 42px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.alert {
+  background: #1e293b;
+  color: #fbbf24;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 12px;
+}
+bbody { font-family: Arial,sans-serif; background:#f0f2f5; margin:0; padding:0; color:#333; }
+.container { max-width:900px; margin:20px auto; padding:20px; background:#fff; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); }
+h2 { margin-top:0; color:#0984e3; }
+form label { display:block; margin-top:15px; font-weight:bold; }
+form input, form select { width:100%; padding:10px; margin-top:5px; border-radius:8px; border:1px solid #ccc; }
+form button { margin-top:20px; padding:12px 20px; border:none; border-radius:8px; background:#0984e3; color:white; font-weight:bold; cursor:pointer; }
+form button:hover { background:#0652dd; }
+table { width:100%; border-collapse:collapse; margin-top:20px; }
+table th, table td { border:1px solid #ccc; padding:8px; text-align:center; }
+table th { background:#0984e3; color:white; }
+

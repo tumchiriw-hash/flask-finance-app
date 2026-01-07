@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>เพิ่มรายการ</title>
+<style>
+/* Reset */
+* { box-sizing: border-box; margin:0; padding:0; font-family: 'Arial', sans-serif; }
+
+/* Background */
+body {
+    background: linear-gradient(135deg, #00b894, #6c5ce7);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Card */
+.container {
+    background: #fff;
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    max-width: 450px;
+    width: 100%;
+    transition: transform 0.3s;
+}
+.container:hover {
+    transform: translateY(-5px);
+}
+
+/* Heading */
+h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+    font-size: 28px;
+}
+
+/* Labels */
+label {
+    font-weight: 600;
+    margin-top: 12px;
+    display: block;
+    color: #555;
+}
+
+/* Inputs & Select */
+input, select {
+    width: 100%;
+    padding: 14px;
+    margin: 8px 0;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    transition: 0.3s;
+}
+input:focus, select:focus {
+    border-color: #6c5ce7;
+    box-shadow: 0 0 10px rgba(108,92,231,0.4);
+    outline: none;
+}
+
+/* Buttons */
+button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 15px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(135deg, #6c5ce7, #00b894);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+button:hover {
+    background: linear-gradient(135deg, #5740c6, #009870);
+}
+
+/* Back button */
+.back-btn {
+    display:inline-block;
+    margin-bottom:15px;
+    padding:8px 16px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #636e72, #2d3436);
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+.back-btn:hover {
+    background: linear-gradient(135deg, #2d3436, #636e72);
+}
+
+/* Flash messages */
+.flash {
+    margin: 10px 0;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+}
+.flash.error { background:#e74c3c; color:white; }
+.flash.success { background:#2ecc71; color:white; }
+</style>
+</head>
+<body>
+<div class="container">
+    <a href="{{ url_for('dashboard') }}" class="back-btn">◀ กลับ</a>
+    <h2>เพิ่มรายการ</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, msg in messages %}
+          <div class="flash {{ category }}">{{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="post">
+        <label>ประเภท</label>
+        <select name="type" id="type" required>
+            <option value="รายรับ">รายรับ</option>
+            <option value="รายจ่าย">รายจ่าย</option>
+        </select>
+
+        <label>หมวดหมู่</label>
+        <select name="category_id" id="category_select" required>
+            <option value="">-- เลือกหมวดหมู่ --</option>
+            {% for cat in categories %}
+                <option value="{{ cat['id'] }}" data-type="{{ cat['type'] }}">{{ cat['name'] }}</option>
+            {% endfor %}
+        </select>
+
+        <label>เพิ่มหมวดหมู่ใหม่ (ถ้ามี)</label>
+        <input type="text" name="new_category" placeholder="กรอกชื่อหมวดหมู่ใหม่">
+
+        <label>จำนวนเงิน</label>
+        <input type="number" name="amount" step="0.01" required>
+
+        <label>หมายเหตุ</label>
+        <input type="text" name="note" placeholder="เช่น ค่าอาหาร, เงินเดือน">
+
+        <button type="submit">บันทึก</button>
+    </form>
+</div>
+
+<script>
+const typeSelect = document.getElementById("type");
+const categorySelect = document.getElementById("category_select");
+
+function filterCategories() {
+    const type = typeSelect.value;
+    Array.from(categorySelect.options).forEach(option => {
+        if(option.value === "") return;
+        option.style.display = option.dataset.type === type ? "" : "none";
+    });
+    categorySelect.value = "";
+}
+
+typeSelect.addEventListener("change", filterCategories);
+window.addEventListener("load", filterCategories);
+</script>
+</body>
+</html>

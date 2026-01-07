@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>เข้าสู่ระบบ</title>
+<style>
+/* Reset */
+* { box-sizing: border-box; margin:0; padding:0; font-family: 'Arial', sans-serif; }
+
+/* Background */
+body {
+    background: linear-gradient(135deg, #6c5ce7, #00b894);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Card */
+.login-card {
+    background: #ffffff;
+    padding: 50px 35px;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    width: 380px;
+    max-width: 95%;
+    text-align: center;
+    transition: transform 0.3s;
+}
+.login-card:hover {
+    transform: translateY(-7px);
+}
+
+/* Heading */
+.login-card h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+/* Flash messages */
+.flash {
+    margin: 10px 0;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+}
+.flash.error { background:#e74c3c; color:white; }
+.flash.success { background:#2ecc71; color:white; }
+
+/* Inputs */
+input {
+    width: 100%;
+    padding: 14px 15px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    transition: 0.3s;
+}
+input:focus {
+    border-color: #6c5ce7;
+    box-shadow: 0 0 10px rgba(108,92,231,0.4);
+    outline: none;
+}
+
+/* Button */
+button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 15px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(135deg, #6c5ce7, #00b894);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+button:hover {
+    background: linear-gradient(135deg, #5740c6, #009870);
+}
+
+/* Separator */
+.separator {
+    margin: 20px 0;
+    text-align: center;
+    position: relative;
+}
+.separator::before, .separator::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: #ccc;
+}
+.separator::before { left: 0; }
+.separator::after { right: 0; }
+.separator span {
+    display: inline-block;
+    padding: 0 10px;
+    color: #555;
+    font-size: 14px;
+}
+
+/* Links */
+.extra-links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 14px;
+}
+.extra-links a {
+    color: #6c5ce7;
+    font-weight: 500;
+    text-decoration: none;
+}
+.extra-links a:hover {
+    text-decoration: underline;
+}
+</style>
+</head>
+<body>
+<div class="login-card">
+    <h2>เข้าสู่ระบบ</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, msg in messages %}
+          <div class="flash {{ category }}">{{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="post">
+        <input type="text" name="email" placeholder="อีเมลหรือชื่อผู้ใช้" required>
+        <input type="password" name="password" placeholder="รหัสผ่าน" required>
+        <button type="submit">เข้าสู่ระบบ</button>
+    </form>
+
+    <div class="separator"><span>หรือ</span></div>
+
+    <div class="extra-links">
+        <a href="{{ url_for('forgot_password') }}">ลืมรหัสผ่าน?</a>
+        <a href="{{ url_for('register') }}">สมัครสมาชิก</a>
+    </div>
+</div>
+</body>
+</html>
